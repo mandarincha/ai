@@ -3,9 +3,9 @@ from openai import OpenAI
 import shelve
 import os
 
-OPEN_AI_API_KEY = "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"
+OPEN_AI_API_KEY = "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"
 client = OpenAI(api_key=OPEN_AI_API_KEY)
-###app = Flask(__name__)
+app = Flask(__name__)
 ##  threads here
 def check_if_thread_exists(wa_id):
     with shelve.open("threads_db") as threads_shelf:
@@ -47,7 +47,7 @@ def generate_response(message_body, wa_id, name):
 
 def run_assistant(thread):
     # call for assistant 
-    assistant = client.beta.assistants.retrieve("asst_3S1rlXEXttRHfMAkqIfewd2M")
+    assistant = client.beta.assistants.retrieve("asst_ezupcA4BQmRnqL8oD6lf8bGN")
 
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
@@ -62,7 +62,7 @@ def run_assistant(thread):
     new_message = messages.data[0].content[0].text.value
     print(f"Generated message: {new_message}")
     return new_message
-##@app.route('/generate_response', methods=['POST'])
+@app.route('/generate_response', methods=['POST'])
 def generate_response_api():
     data = request.get_json()
 
@@ -74,8 +74,7 @@ def generate_response_api():
 
     return jsonify({"response": new_message})
 
-print(generate_response("do you know my gender and name?", "123", "mirva"))
-##if __name__ == '__main__':
-    ##app.run(debug=True, port=os.getenv("PORT", default=5000))
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
 
 
