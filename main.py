@@ -4,7 +4,7 @@ import shelve
 import os
 
 
-OPEN_AI_API_KEY = "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"
+OPEN_AI_API_KEY = os.getenv("api_token")
 client = OpenAI(api_key=OPEN_AI_API_KEY)
 app = Flask(__name__)
 ##  threads here
